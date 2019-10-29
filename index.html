@@ -5,27 +5,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1， user-scalable=no,minimal-ui" servergenerated="true">
+    <link rel="stylesheet" href="./lib/cropper/cropper.min.css">
+    <link rel="stylesheet" href="./lib/cropper/ImgCropping.css">
+    <link rel="stylesheet" href="./css/main.css">
     <title>Document</title>
-    <style>
-        .wrap {
-            text-align: center;
-            padding-top: 100px;
-        }
-    </style>
 </head>
 
 <body>
     <div class="wrap">
-        <div>
-            <input id="words" type="text" value="" placeholder="请输入文字">
-            <input id="files" type="file" value="上传图片" onchange="getImage()">
-            <img id="img" style="position:absolute;z-index: -9999;opacity: 0;" src="" alt="">
-            <button onclick="draw()">开始</button>
-        </div>
-        <br>
-        <canvas id="canvas"></canvas>
-    </div>
+        <div class="popup">
+                若下载不成功请长按保存
+        </div>  
+        <div class="menu">
+            <input class="words" id="words" type="text" value="" placeholder="请输入文字">
+            <input class="numbers" id="numbers" type="number" min="8" max="30" value="14" placeholder="文字大小">
+            <label title="上传图片" for="chooseImg" class="l-btn choose-btn pointer">
+                <input type="file" accept="image/jpg,image/jpeg,image/png" name="file" id="chooseImg" class="hidden"
+                    onchange="selectImg(this)">
+                选择图片
+            </label>
 
+            <span id="drawMenu" class="btn pointer disabled" onclick="draw()">生成图片</span>
+
+            <span id="downloadMenu" class="btn pointer disabled" onclick="download()">下载</span>
+        </div>
+        <img id="drawImgs" class="hide" alt="">
+        <canvas id="drawCanvas"></canvas>
+        <img id="iosSave" >
+        <div class="h5">
+                <div class="info">
+                        <p>
+                            Step:
+                        </p>
+                        <p>
+                            1.输入要添加的文字；
+                        </p>
+                        <p>
+                            2.设置文字的大小；
+                        </p>
+                        <p>
+                            3.选择图片；
+                        </p>
+                        <p>
+                            4.点击成生图片；
+                        </p>
+                        <p>
+                            5.下载。
+                        </p>
+                        <p>
+                            注：生成之后不满意可修改文字和大小无须重新选择图片。
+                        </p>
+                    </div>
+                    <div class="example">
+                        效果图：
+                        <img class="example-img" src="./images/example.png" alt="">
+                    </div>
+        </div>
+        
+        
+    </div>
+    <!--图片裁剪框 start-->
+    <div style="display: none" class="tailoring-container">
+        <div class="black-cloth" onclick="closeTailor(this)"></div>
+        <div class="tailoring-content">
+            <div class="tailoring-content-one">
+
+                <div class="close-tailoring" onclick="closeTailor(this)">×</div>
+            </div>
+
+            <div class="tailoring-content-two">
+                <div class="tailoring-box-parcel">
+                    <img id="tailoringImg">
+                </div>
+                <div class="preview-box-parcel">
+                    <p>图片预览：</p>
+                    <div class="square previewImg"></div>
+                    <!--  <div class="circular previewImg"></div>-->
+                </div>
+            </div>
+
+            <div class="tailoring-content-three">
+                <button class="l-btn cropper-reset-btn">复位</button>
+                <button class="l-btn cropper-rotate-btn">旋转</button>
+                <button class="l-btn cropper-scaleX-btn">换向</button>
+                <button class="l-btn sureCut" id="sureCut">确定</button>
+            </div>
+        </div>
+    </div>
 </body>
+<script src="./lib/jquery/jquery.min.js"></script>
+<script src="./lib/cropper/cropper.min.js"></script>
 <script src="./js/main.js"></script>
+
 </html>
